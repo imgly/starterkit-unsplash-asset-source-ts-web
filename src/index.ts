@@ -53,9 +53,7 @@ CreativeEditorSDK.create('#cesdk_container', config)
 
     // Load the Unsplash demo scene from CDN
     // This scene showcases images that can be replaced with photos from Unsplash
-    await cesdk.loadFromURL(
-      resolveAssetPath('/assets/unsplash.scene')
-    );
+    await cesdk.loadFromURL(resolveAssetPath('/assets/unsplash.scene'));
   })
   .catch((error) => {
     // eslint-disable-next-line no-console
