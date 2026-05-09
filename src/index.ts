@@ -1,8 +1,8 @@
 /**
- * CE.SDK Unsplash Image Editor Starterkit - Main Entry Point
+ * CE.SDK Unsplash Editor Starterkit - Main Entry Point
  *
- * A design editor with Unsplash stock photos integrated as the primary image source.
- * Search and browse millions of free stock photos from Unsplash directly within the editor.
+ * A design editor with Unsplash image integration for creating graphics,
+ * templates, and multi-page documents with free high-quality images.
  *
  * @see https://img.ly/docs/cesdk/js/getting-started/
  * @see https://unsplash.com/documentation
@@ -10,34 +10,43 @@
 
 import CreativeEditorSDK from '@cesdk/cesdk-js';
 
-import { initUnsplashEditor } from './imgly';
+import { initUnsplashEditor, UnsplashEditorOptions } from './imgly';
 import { resolveAssetPath } from './imgly/resolveAssetPath';
 
 // ============================================================================
-// Configuration
+// CE.SDK Configuration
 // ============================================================================
 
 const config = {
-  userId: 'starterkit-unsplash-asset-source-user'
+  userId: 'starterkit-unsplash-asset-source-user',
 
-  // Local assets
-  // baseURL: `/assets/`,
+  // IMG.LY CDN (for quick testing only, NOT recommended for production)
 
-  // License key (required for production)
-  // license: 'YOUR_LICENSE_KEY',
+  // Local assets for development
+
 };
 
 // ============================================================================
-// Unsplash Configuration
+// Unsplash Editor Options
 // ============================================================================
 
-const unsplashConfig = {
-  unsplashApiUrl: undefined as string | undefined
-  // unsplashApiUrl: 'https://your-proxy-server.com/unsplash-api'
+// Option 1: Read from environment variable (recommended for new projects)
+// Set VITE_UNSPLASH_API_URL in your .env file
+const editorOptions: UnsplashEditorOptions = {
+  unsplashApiUrl: (undefined as string | undefined)
 };
 
+// Option 2: Direct configuration (for existing projects)
+// Uncomment and modify the line below instead of using environment variables:
+// const editorOptions: UnsplashEditorOptions = {
+//   unsplashApiUrl: 'https://your-proxy.example.com/unsplash'
+// };
+
+// Option 3: Use demo proxy (development only, no configuration needed)
+// const editorOptions: UnsplashEditorOptions = {};
+
 // ============================================================================
-// Initialize Unsplash Image Editor
+// Initialize Unsplash Editor
 // ============================================================================
 
 CreativeEditorSDK.create('#cesdk_container', config)
@@ -45,8 +54,7 @@ CreativeEditorSDK.create('#cesdk_container', config)
     // Debug access (remove in production)
     (window as any).cesdk = cesdk;
 
-    // Initialize the editor with Unsplash integration
-    await initUnsplashEditor(cesdk, unsplashConfig);
+    await initUnsplashEditor(cesdk, editorOptions);
     // ============================================================================
     // Scene Loading
     // ============================================================================
