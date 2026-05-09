@@ -9,7 +9,7 @@
  * @see https://unsplash.com/documentation
  */
 
-import CreativeEditorSDK from '@cesdk/cesdk-js';
+import type CreativeEditorSDK from '@cesdk/cesdk-js';
 
 import {
   BlurAssetSource,
@@ -77,7 +77,7 @@ export interface UnsplashEditorOptions {
  * ```typescript
  * // Using environment variables (recommended for new projects)
  * await initUnsplashEditor(cesdk, {
- *   unsplashApiUrl: import.meta.env.VITE_UNSPLASH_API_URL
+ *   unsplashApiUrl: (undefined as string | undefined)
  * });
  *
  * // Using direct configuration (for existing projects)
