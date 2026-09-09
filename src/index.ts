@@ -13,6 +13,7 @@ import CreativeEditorSDK from '@cesdk/cesdk-js';
 import { initUnsplashEditor, UnsplashEditorOptions } from './imgly';
 import { resolveAssetPath } from './imgly/resolveAssetPath';
 
+
 // ============================================================================
 // CE.SDK Configuration
 // ============================================================================
