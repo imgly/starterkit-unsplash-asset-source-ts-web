@@ -4,7 +4,7 @@
  * A design editor with Unsplash image integration for creating graphics,
  * templates, and multi-page documents with free high-quality images.
  *
- * @see https://img.ly/docs/cesdk/js/get-started/overview-e18f40/
+ * @see https://img.ly/docs/cesdk/js/getting-started/
  * @see https://unsplash.com/documentation
  */
 
@@ -12,7 +12,6 @@ import CreativeEditorSDK from '@cesdk/cesdk-js';
 
 import { initUnsplashEditor, UnsplashEditorOptions } from './imgly';
 import { resolveAssetPath } from './imgly/resolveAssetPath';
-
 
 // ============================================================================
 // CE.SDK Configuration
@@ -62,7 +61,7 @@ CreativeEditorSDK.create('#cesdk_container', config)
 
     // Load the Unsplash demo scene from CDN
     // This scene showcases images that can be replaced with photos from Unsplash
-    await cesdk.load(resolveAssetPath('/assets/unsplash.scene'));
+    await cesdk.loadFromURL(resolveAssetPath('/assets/unsplash.scene'));
   })
   .catch((error) => {
     // eslint-disable-next-line no-console
