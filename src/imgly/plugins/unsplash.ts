@@ -130,14 +130,17 @@ function createFindUnsplashAssets(apiUrl: string) {
   const unsplashApi = createApi({ apiUrl });
 
   return async function findUnsplashAssets(queryData: AssetQueryData) {
-    const page = queryData.page ?? 1;
-    const perPage = queryData.perPage ?? 20;
+    const { page, perPage } = queryData;
+
+    // Unsplash counts pages from 1
+    // Convert from CE.SDK's 0-based pagination
+    const unsplashPage = page + 1;
 
     if (queryData.query) {
       // Search for photos matching query
       const response = await unsplashApi.search.getPhotos({
         query: queryData.query,
-        page,
+        page: unsplashPage,
         perPage
       });
 
@@ -150,7 +153,7 @@ function createFindUnsplashAssets(apiUrl: string) {
           ),
           total,
           currentPage: page,
-          nextPage: page + 1 <= total_pages ? page + 1 : undefined
+          nextPage: unsplashPage < total_pages ? page + 1 : undefined
         };
       } else if (response.type === 'error') {
         throw new Error(response.errors[0]);
@@ -159,13 +162,13 @@ function createFindUnsplashAssets(apiUrl: string) {
       // List popular photos (default view)
       const response = await unsplashApi.photos.list({
         orderBy: OrderBy.POPULAR,
-        page,
+        page: unsplashPage,
         perPage
       });
 
       if (response.type === 'success') {
         const { results, total } = response.response;
-        const totalFetched = (page - 1) * perPage + results.length;
+        const totalFetched = page * perPage + results.length;
         const nextPage = totalFetched < total ? page + 1 : undefined;
 
         return {
