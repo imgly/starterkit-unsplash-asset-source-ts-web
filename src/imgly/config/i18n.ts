@@ -47,12 +47,12 @@ export function setupTranslations(cesdk: CreativeEditorSDK): void {
   // cesdk.i18n.setTranslations({
   //   en: {
   //     'libraries.ly.img.templates.label': 'Templates',
-  //     'component.fileOperation.exportImage': 'Download',
+  //     'component.fileOperation.export': 'Download',
   //     'common.done': 'Finish',
   //   },
   //   de: {
   //     'libraries.ly.img.templates.label': 'Vorlagen',
-  //     'component.fileOperation.exportImage': 'Herunterladen',
+  //     'component.fileOperation.export': 'Herunterladen',
   //     'common.done': 'Fertig',
   //   }
   // });
