@@ -34,7 +34,7 @@ const config = {
 // Option 1: Read from environment variable (recommended for new projects)
 // Set VITE_UNSPLASH_API_URL in your .env file
 const editorOptions: UnsplashEditorOptions = {
-  unsplashApiUrl: (undefined as string | undefined)
+  unsplashApiUrl: import.meta.env.VITE_UNSPLASH_API_URL
 };
 
 // Option 2: Direct configuration (for existing projects)
@@ -42,9 +42,6 @@ const editorOptions: UnsplashEditorOptions = {
 // const editorOptions: UnsplashEditorOptions = {
 //   unsplashApiUrl: 'https://your-proxy.example.com/unsplash'
 // };
-
-// Option 3: Use demo proxy (development only, no configuration needed)
-// const editorOptions: UnsplashEditorOptions = {};
 
 // ============================================================================
 // Initialize Unsplash Editor
