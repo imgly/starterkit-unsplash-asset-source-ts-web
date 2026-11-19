@@ -28,25 +28,30 @@ npm install
 CE.SDK requires engine assets (fonts, icons, UI elements) served from your `public/` directory.
 
 ```bash
-curl -O https://cdn.img.ly/packages/imgly/cesdk-js/$UBQ_VERSION$/imgly-assets.zip
+curl -O https://cdn.img.ly/packages/imgly/cesdk-js/1.87.0-rc.2/imgly-assets.zip
 unzip imgly-assets.zip -d public/
 rm imgly-assets.zip
 ```
 
-### Configure Unsplash API (Optional)
+### Configure Unsplash API
 
-For production use, set up your own Unsplash API proxy:
+The starter kit has no built-in Unsplash proxy, so Unsplash search works only after you set up your own:
 
 1. Create an Unsplash developer account: https://unsplash.com/developers
 2. Set up a proxy server to add your API key server-side
-3. Set the `VITE_UNSPLASH_API_URL` environment variable
+3. Set the proxy URL as `VITE_UNSPLASH_API_URL` in a `.env` file, which you create as a copy of `.env.example`:
 
 ```bash
-# .env
-VITE_UNSPLASH_API_URL=https://your-proxy.example.com
+VITE_UNSPLASH_API_URL=https://your-proxy.example.com/unsplash
 ```
 
-The starter kit includes a demo proxy URL for development purposes.
+Or set it in `editorOptions` in `src/index.ts`:
+
+```typescript
+const editorOptions: UnsplashEditorOptions = {
+  unsplashApiUrl: 'https://your-proxy.example.com/unsplash'
+};
+```
 
 ### Run the Development Server
 
@@ -145,12 +150,12 @@ The starter kit handles all attribution requirements automatically.
 
 ## Troubleshooting
 
-| Issue | Solution |
-|-------|----------|
-| Editor doesn't load | Verify assets are accessible at `baseURL` |
-| Unsplash images don't load | Check `VITE_UNSPLASH_API_URL` configuration |
-| No search results | Verify proxy server is running and accessible |
-| Watermark appears | Add your CE.SDK license key |
+| Issue                      | Solution                                                                                       |
+| -------------------------- | ---------------------------------------------------------------------------------------------- |
+| Editor doesn't load        | Verify assets are accessible at `baseURL`                                                      |
+| Unsplash images don't load | Check `VITE_UNSPLASH_API_URL` in `.env`, or the proxy URL in `editorOptions` in `src/index.ts` |
+| No search results          | Verify proxy server is running and accessible                                                  |
+| Watermark appears          | Add your CE.SDK license key                                                                    |
 
 ## Documentation
 
