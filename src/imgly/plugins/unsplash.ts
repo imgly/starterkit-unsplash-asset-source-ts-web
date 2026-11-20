@@ -47,7 +47,7 @@ export interface UnsplashAssetSourcePluginOptions {
    * IMPORTANT: Never expose your Unsplash API key in frontend code.
    * Use a proxy server to add the API key server-side.
    *
-   * If not provided, falls back to the demo proxy URL for development.
+   * Without it, every Unsplash query fails with `Invalid URL`.
    */
   apiUrl?: string;
 }
@@ -214,8 +214,8 @@ export function createUnsplashAssetSource(apiUrl: string): AssetSource {
 }
 
 /**
- * Default Unsplash asset source using the demo proxy.
- * For production, use createUnsplashAssetSource() with your proxy URL.
+ * Default Unsplash asset source. It has no proxy URL, so use
+ * createUnsplashAssetSource() with your proxy URL instead.
  */
 export const unsplashAssetSource: AssetSource = createUnsplashAssetSource(
   DEFAULT_UNSPLASH_API_URL
@@ -235,10 +235,7 @@ export const unsplashAssetSource: AssetSource = createUnsplashAssetSource(
  * ```typescript
  * import { UnsplashAssetSourcePlugin } from './plugins/unsplash';
  *
- * // Using default demo proxy (development only)
- * await cesdk.addPlugin(new UnsplashAssetSourcePlugin());
- *
- * // Using custom proxy URL (recommended for production)
+ * // Using your proxy URL
  * await cesdk.addPlugin(new UnsplashAssetSourcePlugin({
  *   apiUrl: 'https://your-proxy.example.com/unsplash'
  * }));
@@ -264,7 +261,7 @@ export class UnsplashAssetSourcePlugin implements EditorPlugin {
    * Create a new UnsplashAssetSourcePlugin instance.
    *
    * @param options - Configuration options
-   * @param options.apiUrl - Unsplash API proxy URL (defaults to demo proxy)
+   * @param options.apiUrl - Unsplash API proxy URL
    */
   constructor(options: UnsplashAssetSourcePluginOptions = {}) {
     this.options = options;
@@ -326,7 +323,7 @@ export class UnsplashAssetSourcePlugin implements EditorPlugin {
         if (
           replaceIntent === 'fill' &&
           selectedBlocks.length === 1 &&
-          selectedBlocks[0].fillType === '//ly.img.ubq/fill/image'
+          selectedBlocks[0]?.fillType === '//ly.img.ubq/fill/image'
         ) {
           return ['unsplash'];
         }

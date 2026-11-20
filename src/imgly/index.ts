@@ -33,7 +33,7 @@ import {
 import { DesignEditorConfig } from './config/plugin';
 import {
   UnsplashAssetSourcePlugin,
-  UnsplashAssetSourcePluginOptions
+  type UnsplashAssetSourcePluginOptions
 } from './plugins/unsplash';
 
 // Re-export for external use
@@ -55,8 +55,7 @@ export interface UnsplashEditorOptions {
    * IMPORTANT: Never expose your Unsplash API key in frontend code.
    * Use a proxy server to add the API key server-side.
    *
-   * If not provided, falls back to the demo proxy URL for development.
-   * For production, set up your own proxy server.
+   * Without it, every Unsplash query fails with `Invalid URL`.
    *
    * @example 'https://your-api.example.com/unsplash'
    */
@@ -78,16 +77,13 @@ export interface UnsplashEditorOptions {
  * ```typescript
  * // Using environment variables (recommended for new projects)
  * await initUnsplashEditor(cesdk, {
- *   unsplashApiUrl: (undefined as string | undefined)
+ *   unsplashApiUrl: import.meta.env.VITE_UNSPLASH_API_URL
  * });
  *
  * // Using direct configuration (for existing projects)
  * await initUnsplashEditor(cesdk, {
  *   unsplashApiUrl: 'https://your-proxy.example.com/unsplash'
  * });
- *
- * // Using demo proxy (development only)
- * await initUnsplashEditor(cesdk);
  * ```
  */
 export async function initUnsplashEditor(
